@@ -1,3 +1,6 @@
+import ProductItem from '../components/Product/productItem.js';
+import { ProductCard } from '../components/ProductCard/index.js';
+
 class ProductPage {
     constructor(){
         this.mainElement = document.createElement("main");
@@ -18,29 +21,23 @@ class ProductPage {
         console.log(this.product);
 
         this.mainElement.classList.add("product");
-        this.mainElement.innerHTML = `
-            <h1 class='ir'>상품목록 페이지</h1>
-            <ul class='product-list'></ul>
-        `
 
-        const productList = this.mainElement.querySelector(".product-list");
-        
+        const productPageHeader = document.createElement('h1');
+        productPageHeader.setAttribute('class', 'ir');
+        productPageHeader.innerText = '상픔목록 페이지';
+        this.mainElement.appendChild(productPageHeader);
+
+        const productList = document.createElement('ul');
+        productPageHeader.setAttribute('class', 'product-list');
+
         this.product.forEach(item => {
-            const productDetailLink = document.createElement('a');
-            productDetailLink.href = `/detail/${item.id}`;
-            productDetailLink.innerHTML = `
-                <li class='product-item'>
-                    <div class='product-item'>
-                        <img src='http://test.api.weniv.co.kr/${item.thumbnailImg}' alt='상품이미지' />
-                    </div>
-                    <strong class='product-name'>${item.productName}</strong>
-                    <div class='product-price'>
-                        <strong class='product-price m-price'>${item.price}<span>원</span></strong>
-                    </div>
-                </li>
-            `;
-            productList.append(productDetailLink);
-        })
+            const productItem = document.createElement('li');
+            productItem.setAttribute('class', 'product-item');
+            const productCard = new ProductCard(item);
+            productList.appendChild(productCard.render());
+            productList.appendChild(productItem);
+        });
+        this.mainElement.append(productList);
         console.log(this.mainElement);
     }
 
