@@ -6,7 +6,7 @@ class ProductDetail {
 
     // 전체 상품 정보 가져오기
     async getProductData(){
-        const response = await fetch(`http://35.76.53.28:8080/mall/${this.id}`);
+        const response = await fetch(`http://test.api.weniv.co.kr/mall/${this.id}`);
         const data = await response.json();
 
         this.product = await data;
