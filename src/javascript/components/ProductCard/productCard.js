@@ -13,7 +13,7 @@ class ProductItem {
         const productImage = new ProductImage(this.item.thumbnailImg);
         const productName = new ProductName(this.item.productName);
         const productPrice = new ProductPrice(this.item.price);
-        const productLikeButton = new ProductLikeButton();
+        const productLikeButton = new ProductLikeButton(this.item.id);
 
         product.appendChild(productImage.render());
         product.appendChild(productName.render());
