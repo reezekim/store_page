@@ -1,10 +1,6 @@
-class productPrice {
-    constructor(price, discountRate){
-        this.price = price;
-        this.discountRate = discountRate;
-        console.log(discountRate);
-    }
+import Component from '../../../core/Component.js';
 
+class productPrice extends Component{
     render(){
         const productPriceContainer = document.createElement('div');
         productPriceContainer.setAttribute('class', 'product-price');
@@ -16,8 +12,7 @@ class productPrice {
         priceType.innerText = '원';
         productPriceContainer.appendChild(productPrice);
 
-
-        if(this.discountRate > 0){
+        if(this.props.discountRate > 0){
             console.log("할인된 상품이 있다!");
             // 할인된 금액 계산
             // this.price = 뭔가 할인율이 계산된 금액!
@@ -27,13 +22,13 @@ class productPrice {
 
             const originPrice = document.createElement('strong');
             originPrice.setAttribute('class', 'price-strikethrough');
-            originPrice.innerText = this.price;
+            originPrice.innerText = this.props.price;
 
             const disconutRateDisplay = document.createElement('strong');
             disconutRateDisplay.setAttribute('class', 'discount-rate');
-            disconutRateDisplay.innerText = this.discountRate + '%';
+            disconutRateDisplay.innerText = this.props.discountRate + '%';
 
-            this.price = this.price - this.price*(0.01*this.discountRate);
+            this.price = this.props.price - this.props.price*(0.01*this.props.discountRate);
 
             disconutRateContainer.appendChild(originPrice);
             disconutRateContainer.appendChild(priceType.cloneNode(true));
@@ -41,7 +36,7 @@ class productPrice {
             productPriceContainer.appendChild(disconutRateContainer);
         } 
 
-        productPrice.innerText = this.price;
+        productPrice.innerText = this.props.price;
         productPrice.appendChild(priceType);
         return productPriceContainer;
     }
