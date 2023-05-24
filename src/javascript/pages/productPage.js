@@ -38,7 +38,6 @@ class ProductPage {
             productList.appendChild(productItem);
         });
         this.mainElement.append(productList);
-        console.log(this.mainElement);
     }
 
     render(){

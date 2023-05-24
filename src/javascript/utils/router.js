@@ -18,7 +18,6 @@ class Router {
                 delete this.routes[key];
             }
         }
-        console.log(this.routes);
     }
 
     init(rootElementId) {
