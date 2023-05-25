@@ -1,5 +1,5 @@
 import { ProductCard } from '../components/ProductCard/index.js';
-import Component from '../../core/Component.js';
+import { Component } from "../core/index.js";
 
 class ProductPage extends Component{
     constructor(props){

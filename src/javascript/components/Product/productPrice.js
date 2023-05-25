@@ -1,4 +1,4 @@
-import Component from '../../../core/Component.js';
+import { Component } from "../../core/index.js";
 
 class productPrice extends Component{
     render(){
@@ -13,7 +13,7 @@ class productPrice extends Component{
         productPriceContainer.appendChild(productPrice);
 
         if(this.props.discountRate > 0){
-            console.log("할인된 상품이 있다!");
+            // console.log("할인된 상품이 있다!");
             // 할인된 금액 계산
             // this.price = 뭔가 할인율이 계산된 금액!
             // 할인과 관련된 eleement를 추가한다.
