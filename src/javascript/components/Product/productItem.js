@@ -1,4 +1,3 @@
-
 class ProductItem {
     constructor(item){
         this.item = item;
@@ -31,5 +30,3 @@ class ProductItem {
         return productItem;
     }
 }
-
-export default ProductItem;
