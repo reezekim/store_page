@@ -25,17 +25,17 @@ class ProductPage extends Component{
 
         const productPageHeader = document.createElement('h1');
         productPageHeader.setAttribute('class', 'ir');
-        productPageHeader.innerText = '상픔목록 페이지';
+        productPageHeader.innerText = '상품목록 페이지';
         this.mainElement.appendChild(productPageHeader);
 
         const productList = document.createElement('ul');
-        productPageHeader.setAttribute('class', 'product-list');
+        productList.setAttribute('class', 'product-list');
 
-        this.product.forEach(item => {
+        this.product.forEach((item) => {
             const productItem = document.createElement('li');
             productItem.setAttribute('class', 'product-item');
             const productCard = new ProductCard({item:item});
-            productList.appendChild(productCard.render());
+            productItem.appendChild(productCard.render());
             productList.appendChild(productItem);
         });
         this.mainElement.append(productList);
