@@ -15,7 +15,7 @@ class ProductItem extends Component{
         product.appendChild(productImage.render());
         product.appendChild(productName.render());
         product.appendChild(productPrice.render());
-        product.appendChild(productLikeButton.initailize());
+        product.appendChild(productLikeButton.initialize());
 
         return product;
     }

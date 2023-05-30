@@ -9,11 +9,13 @@ class Router {
             console.error("Can not initailize Routes, need routes!");
         }
         this.routes = routes;
+        this.routeParam = {};
 
         for (const key in routes) {
             const route = routes[key];
             if(key.indexOf(':') > -1) {
                 const [_, routeName, param] = key.split('/');
+                this.routeParam[routeName] = param.replace(':','');
                 this.routes['/' + routeName] = route;
                 delete this.routes[key];
             }
@@ -63,10 +65,14 @@ class Router {
         // /detail/10
         if(this.routes[pathname]){
             const component = new this.routes[pathname];
-            page = component.render();
+            page = component.initialize();
         } else if(param) {
-            const component = new this.routes['/' + routeName](param);
-            page = component.render();
+            // 컴포넌트를 생성할때는 object형태로 넣어주기로 했습니다.
+            // key를 각각 저장해줘야 할것같다.
+            const routeParam = {};
+            routeParam[this.routeParam[routeName]] = param;
+            const component = new this.routes['/' + routeName](routeParam);
+            page = component.initialize();
         }
 
         if(page){

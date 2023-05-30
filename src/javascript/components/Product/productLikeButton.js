@@ -29,34 +29,6 @@ class ProductLikeButton extends Component{
         this.setState({liked:this.checkLikeList()});
     }
 
-    // state가 바뀌면 리렌더링이 일어나야함.
-    // setState만 해주는 곳.
-    // 리렌더링도 하고있다.
-    setState(newState){
-        this.state = newState;
-        this.updater();
-    }
-
-    updater(){
-        const rendered = this.render();
-        this.lastRendered.replaceWith(rendered);
-        this.lastRendered = rendered;
-    }
-
-    // 클릭을 하면 좋아요 목록을 추가한다.
-    // 추가되어있다면 "on"클래스를 버튼에 추가한다.
-    // 좋아요 목록은 로컬스토리를 활용하여 클라이언트에서 저장하도록 한다.
-    // 문제점 -> Componenet에서는 render에서 요소를 만들고 컴포넌트를 생성한다.
-    // 해당 부분에서 요소를 직접 조작하는 것은 우리가 만든 규칙에 맞지 않아 보인다.
-    // 그럼 직접 요소를 조작하지 않고 하려면 어떻게 해야할까?
-
-    // 아이디어 -> 그러면 render에서 this.liked에 맞춰 렌더링 해주도록 하자!
-    // 클릭을 했을때 this.liked만 바꾸자! 
-
-    // render 밖에서 요소에 접근해서 조작하는걸 막아줬다. 없애줬다?
-    // 바뀐 상태가 적용되지 않고 있다.
-    // 이유 -> 해당 컴포넌트가 새로 렌더링이 되지 않고 있다. 
-
     render(){
         const likeButton = document.createElement('button');
         likeButton.setAttribute('class', `like-btn`);
@@ -79,12 +51,7 @@ class ProductLikeButton extends Component{
 
         return likeButton;
     }
-
-    initailize(){
-        const rendered = this.render();
-        this.lastRendered = rendered;
-        return rendered;
-    }
+    // 최초 초기화 -> 내부적으로 render가 실행됨 -> 마지막 렌더링 결과 -> state가 바뀌면 새로운 state에 맞춰서 새로 render
 }
 
 export default ProductLikeButton;
