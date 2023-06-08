@@ -1,6 +1,6 @@
 import { Component, createComponent } from '../core/index.js';
 import { ProductBasicInfo, ProductDetailInfo } from "../components/ProductDetail/index.js";
-// import { ProductLikeButton } from '../components/Product/index.js';
+import { CloseButton } from '../components/Button/index.js';
 
 class ProductDetail extends Component {
     constructor(props) {
@@ -43,9 +43,11 @@ class ProductDetail extends Component {
         }
         
         // 닫기버튼
+        const closeButton = createComponent(CloseButton);
+        closeButton.addEventListener('click',()=>window.history.back());
+        contentWrap.append(closeButton);
 
         container.append(contentWrap);
-
         return container;
     }
 }

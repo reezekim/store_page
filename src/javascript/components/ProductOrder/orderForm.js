@@ -1,12 +1,14 @@
 import { Component, createComponent } from '../../core/index.js';
-import { QuantityInput, OptionSelector, SelectedOption } from './index.js'
+import { QuantityInput, OptionSelector, SelectedOption, MessageModal } from './index.js'
+import { OrderButton, CartButton, ProductLikeButton } from "../Button/index.js";
 
 class OrderForm extends Component {
     constructor(props){
         super(props);
         this.state = {
             quantity:this.props.product.option.length>0?0:1,
-            selectedProductOptions:[]
+            selectedProductOptions:[],
+            cartModal:false,
         }
     }
     addSelectedProductOption(optionId) {
@@ -69,6 +71,10 @@ class OrderForm extends Component {
             return acc;
         },0);
         return totalPrice+totalAdditionalfee;
+    }
+
+    toggleCartModal(){
+        this.setState({...this.state, cartModal:!this.state.cartModal});
     }
 
     render(){
@@ -152,11 +158,39 @@ class OrderForm extends Component {
         totalPrice.append(priceType);
 
         totalOrderInfo.append(peoductQuantity, totalPrice);
-
         totalPriceContainer.append(totalPriceTitle, totalOrderInfo);
 
+        const buttonContainer = document.createElement('div');
+        buttonContainer.setAttribute('class', 'button-group');
+        const orderButtonProps = this.props.product.stockCount<1?{text:'품절된 상품입니다.',disabled:true}:{text:'바로구매',disabled:false};
+        const orderButton = createComponent(OrderButton,orderButtonProps);
+        const cartButton = createComponent(CartButton,orderButtonProps);
+        const productLikeButton = createComponent(ProductLikeButton,{id:this.props.product.id});
+
+        cartButton.addEventListener('click', this.toggleCartModal.bind(this));
+
+        buttonContainer.append(orderButton,cartButton,productLikeButton);
+
+        if(this.state.cartModal){
+            const modalMessage = document.createElement('p');
+            modalMessage.innerText = '장바구니에 추가되었습니다.';
+            const cartLink = document.createElement('a');
+            cartLink.setAttribute('class', 'cart-link');
+            cartLink.href = '/cart';
+            cartLink.innerText = '장바구니 가기';
+
+            const closeModal = document.createElement('button');
+            closeModal.type = 'button';
+            closeModal.setAttribute('class', 'close-modal-btn');
+            closeModal.innerText = '계속 쇼핑하기';
+            closeModal.addEventListener('click', this.toggleCartModal.bind(this));
+
+            const messageModal = createComponent(MessageModal, {childrenEl:[modalMessage, cartLink, closeModal]});
+            buttonContainer.append(messageModal);
+        }
+
         productOptionContainer.append(delivertyTitle, selectedProductContainer);
-        orderForm.append(productOptionContainer, totalPriceContainer);
+        orderForm.append(productOptionContainer, totalPriceContainer, buttonContainer);
         return orderForm;
     }
 }
