@@ -589,6 +589,7 @@ margin-bottom 값을 다르게 합니다. (form에 이미 padding 10px이 설정
 /* 기본 정보 - 선택 상품 합계 가격 */
 .product-basic-info .total-price .title {
   font-size: 18px;
+  font-weight: 700;
   line-height: 23px;
   color: var(--color-text);
 }
